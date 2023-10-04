@@ -3,6 +3,7 @@ const gameBoard = (function () {
     const marker = ["O", "X"];
     const winCases = [
         [0, 1, 2], [3, 4, 5] , [6, 7, 8],
+        [0, 3, 5], [1, 4, 7], [2, 5, 8],
         [0, 4, 8], [2, 4, 6]
     ];
     const makeMark = function (player, position) {
@@ -13,14 +14,21 @@ const gameBoard = (function () {
             boardArray[position] = marker[player.getNumber()];
             player.marks.push(position);
             if (player.marks.length >= 3) {
-                checkFinished(player);
+                checkWinner(player);
             }
         }
     }
-    const checkFinished = function (player) {
-        
+    const checkWinner = function (player) {
+        for (const winCase in winCases) {
+            for (let i = 0; i < winCase.length; i++) {
+                if (!player.marks.includes(winCase[i])) break;
+                if (winCase[i] !== player.marks.indexOf(winCase[i])) break;
+                if (i === winCase.length - 1) return player;
+            }
+        }
+        return false;
     }
-    return {};
+    return {makeMark,};
 })();
 
 const displayController = (function () {
