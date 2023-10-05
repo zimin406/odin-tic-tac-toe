@@ -61,3 +61,13 @@ button.start-button {
 
     border: none;
 }
+
+div.players-container {
+    display: flex;
+    justify-content: self;
+    gap: 60px;
+}
+
+div.player-container {
+    font-size: 1.2rem;
+}

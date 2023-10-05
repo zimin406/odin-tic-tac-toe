@@ -54,7 +54,7 @@ const gameBoard = (function () {
     }
 
     const checkWinner = function (player) {
-        const tempMarks = player.getMarks();
+        const tempMarks = player.getMarks().sort((a, b) => a - b);
         for (const win of winCases) {
             if (tempMarks.indexOf(win[0]) === -1) continue;
             for (let i = 0; i < win.length; i++) {
@@ -74,6 +74,7 @@ const gameBoard = (function () {
         displayController.initializeDisplay();
         players[0] = new Player(prompt("Player 1's name:"));
         players[1] = new Player(prompt("Player 2's name:"));
+        displayController.initializeNames(players);
     }
 
     const finishGame = function (result) {
@@ -81,14 +82,17 @@ const gameBoard = (function () {
         displayController.disableDisplay();
     }
 
-    return {startGame, finishGame, makeMark,};
+    const getPlayers = function () {
+        return players;
+    }
+
+    return {startGame, finishGame, makeMark, getPlayers};
 })();
 
 const displayController = (function () {
     const gameBoardCells = document.querySelectorAll("div.game-board-cell");
     const gameBoardDiv = document.querySelector("div.game-board");
-    const player1Container = document.querySelector("div.player-1-container");
-    const player2Container = document.querySelector("div.player-2-container");
+    const playerContainers = document.querySelectorAll("div.player-container");
     const startButton = document.querySelector("button.start-button");
 
     const startButtonEventListener = function (event) {
@@ -110,6 +114,7 @@ const displayController = (function () {
         }
         startButton.removeEventListener("click", startButtonEventListener);
         startButton.textContent = "Restart";
+       
     }
 
     const showResultDisplay = function (result) {
@@ -132,10 +137,16 @@ const displayController = (function () {
         }
         startButton.addEventListener("click", startButtonEventListener);
     }
+
+    const initializeNames = function (players) {
+        for (let i = 0; i < players.length; i++) {
+            playerContainers[i].textContent = `Player ${i}: ${players[i].getName()}`;
+        }
+    }
     
 
   
-    return {initializeDisplay, showResultDisplay, disableDisplay,};
+    return {initializeDisplay, showResultDisplay, disableDisplay, initializeNames,};
 })();
 
 const Player = function (name, number) {
