@@ -15,6 +15,7 @@ body {
 
 h1 {
     font-size: 2rem;
+    font-weight: bold;
 }
 
 div.game-board {
@@ -29,6 +30,8 @@ div.game-board {
     background-color: rgb(240, 240, 240);
 
     padding: 10px;
+
+    box-shadow: 4px 4px rgb(180, 180, 180);
 }
 
 div.game-board-cell {
@@ -44,4 +47,17 @@ div.game-board-cell {
 
 div.game-board-cell:hover {
     background-color: rgb(200, 200, 200);
+}
+
+button.start-button {
+    padding: 6px 25px;
+
+    font-size: 1rem;
+    font-weight: bold;
+
+    background-color: rgb(200, 200, 200);
+
+    box-shadow: 4px 4px rgb(180, 180, 180);
+
+    border: none;
 }

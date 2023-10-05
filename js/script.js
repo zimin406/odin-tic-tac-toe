@@ -91,9 +91,11 @@ const displayController = (function () {
     const player2Container = document.querySelector("div.player-2-container");
     const startButton = document.querySelector("button.start-button");
 
-    startButton.addEventListener("click", (event) => {
+    const startButtonEventListener = function (event) {
         gameBoard.startGame();
-    })
+    }
+
+    startButton.addEventListener("click", startButtonEventListener);
 
     const cellEventListener = function (event) {
         event.target.textContent = gameBoard.makeMark(+ event.target.getAttribute("data-position"));
@@ -106,6 +108,8 @@ const displayController = (function () {
         for (cell of gameBoardCells) {
             cell.textContent = "";
         }
+        startButton.removeEventListener("click", startButtonEventListener);
+        startButton.textContent = "Restart";
     }
 
     const showResultDisplay = function (result) {
@@ -126,6 +130,7 @@ const displayController = (function () {
         for (cell of gameBoardCells) {
             cell.removeEventListener("click", cellEventListener);
         }
+        startButton.addEventListener("click", startButtonEventListener);
     }
     
 
