@@ -28,8 +28,6 @@ const gameBoard = (function () {
         boardSize = size;
     }
 
-    
-
     const makeMark = function (player, position) {
         if (boardArray[position] !== null) {
             alert("You can't mark here.");
@@ -72,3 +70,9 @@ const Player = function (name, number) {
     }
     return {getName, getNumber,};
 }
+
+const gameBoardCells = document.querySelectorAll("div.game-board-cell");
+
+gameBoardCells.addEventListener("click", (event) => {
+    
+})
