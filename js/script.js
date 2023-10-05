@@ -1,11 +1,35 @@
 const gameBoard = (function () {
-    const boardArray = new Array(9).fill(null);
+    let boardSize = 3;
+    const boardArray = new Array(boardSize * boardSize).fill(null);
     const marker = ["O", "X"];
-    const winCases = [
-        [0, 1, 2], [3, 4, 5] , [6, 7, 8],
-        [0, 3, 5], [1, 4, 7], [2, 5, 8],
-        [0, 4, 8], [2, 4, 6]
-    ];
+
+    const findWinCases = function (size) {
+        const horizontalWin = [];
+        const verticalWin = [];
+        const diagonalWin = [[], []];
+        for (let i = 0; i < size; i++) {
+            diagonalWin[0].push((size + 1) * i);
+            diagonalWin[1].push((size - 1) * (i + 1));
+            const horizontalTemp = [size * i];
+            const verticalTemp = [i];
+            for (let j = 1; j < size; j++) {
+                horizontalTemp.push(horizontalTemp[0] + j);
+                verticalTemp.push(verticalTemp[0] + size * j);
+            }
+            horizontalTemp.push(horizontalTemp);
+            verticalTemp.push(verticalTemp);
+        }
+    }
+
+    const winCases = findWinCases(boardSize);
+    
+
+    const setBoardSize = function (size) {
+        boardSize = size;
+    }
+
+    
+
     const makeMark = function (player, position) {
         if (boardArray[position] !== null) {
             alert("You can't mark here.");
@@ -13,17 +37,18 @@ const gameBoard = (function () {
         else {
             boardArray[position] = marker[player.getNumber()];
             player.marks.push(position);
-            if (player.marks.length >= 3) {
+            if (player.marks.length >= boardSize) {
                 checkWinner(player);
             }
         }
     }
+
     const checkWinner = function (player) {
-        for (const winCase in winCases) {
-            for (let i = 0; i < winCase.length; i++) {
-                if (!player.marks.includes(winCase[i])) break;
-                if (winCase[i] !== player.marks.indexOf(winCase[i])) break;
-                if (i === winCase.length - 1) return player;
+        for (const win in winCases) {
+            for (let i = 0; i < win.length; i++) {
+                if (!player.marks.includes(win[i])) break;
+                if (win[i] !== player.marks.indexOf(win[i])) break;
+                if (i === win.length - 1) return player;
             }
         }
         return false;
@@ -36,12 +61,14 @@ const displayController = (function () {
 })();
 
 const Player = function (name, number) {
-    const name = name;
-    const number = number;
     const marks = [];
 
+    const getName = function () {
+        return name;
+    }
+    
     const getNumber = function () {
         return number;
     }
-    return {getNumber,};
+    return {getName, getNumber,};
 }
