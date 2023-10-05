@@ -123,10 +123,10 @@ const displayController = (function () {
                 alert("Tie");
                 break;
             case 0:
-                alert("Player 1 won");
+                alert(`${gameBoard.getPlayers()[0].getName()} won`);
                 break;
             case 1:
-                alert("Player 2 won");
+                alert(`${gameBoard.getPlayers()[1].getName()} won`);
                 break;
         }
     }
@@ -140,7 +140,7 @@ const displayController = (function () {
 
     const initializeNames = function (players) {
         for (let i = 0; i < players.length; i++) {
-            playerContainers[i].textContent = `Player ${i}: ${players[i].getName()}`;
+            playerContainers[i].textContent = `Player ${i + 1}: ${players[i].getName()}`;
         }
     }
     
