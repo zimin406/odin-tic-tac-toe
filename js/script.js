@@ -87,6 +87,14 @@ const gameBoard = (function () {
 const displayController = (function () {
     const gameBoardCells = document.querySelectorAll("div.game-board-cell");
     const gameBoardDiv = document.querySelector("div.game-board");
+    const player1Container = document.querySelector("div.player-1-container");
+    const player2Container = document.querySelector("div.player-2-container");
+    const startButton = document.querySelector("button.start-button");
+
+    startButton.addEventListener("click", (event) => {
+        gameBoard.startGame();
+    })
+
     const cellEventListener = function (event) {
         event.target.textContent = gameBoard.makeMark(+ event.target.getAttribute("data-position"));
     }

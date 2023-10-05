@@ -36,7 +36,10 @@ div.game-board-cell {
     
     font-size: 2rem;
     font-weight: bold;
-    line-height: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 div.game-board-cell:hover {
